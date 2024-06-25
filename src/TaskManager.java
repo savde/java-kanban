@@ -13,10 +13,16 @@ public class TaskManager {
     }
 
     public void add(Epic epic){
+        epic.setId(nextId++);
+        epics.put(epic.getId(), epic);
 
     }
 
     public void add(Subtask subtask){
+        subtask.setId(nextId++);
+        subTasks.put(subtask.getId(), subtask);
 
+        Epic epic = epics.get(subtask.getEpicId());
+        epic.taskIds.add(subtask.getId());
     }
 }
