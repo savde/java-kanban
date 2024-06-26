@@ -46,6 +46,7 @@ public class TaskManager {
             tasks.remove(id);
         }
         if(epics.containsKey(id)){
+            epics.get(id).taskIds.forEach(taskId -> subTasks.remove(taskId));
             epics.remove(id);
         }
         if(subTasks.containsKey(id)){
