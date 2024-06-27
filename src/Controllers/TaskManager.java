@@ -12,7 +12,7 @@ public class TaskManager {
     private HashMap<Integer, Epic> epics = new HashMap<>();
     private HashMap<Integer, Subtask> subTasks = new HashMap<>();
 
-    public ArrayList<Task> getAllTasks(){               //Получение списка всех задач
+    public ArrayList<Task> getAllTasks(){               //Пока оставил для проверки
         ArrayList<Task> allTasks = new ArrayList<>();
         for(Task t : tasks.values()){
             allTasks.add(t);
@@ -24,6 +24,18 @@ public class TaskManager {
             allTasks.add(s);
         }
         return allTasks;
+    }
+
+    public ArrayList<Task> getTasks(){  //получение списка простых задач
+        return new ArrayList<>(tasks.values());
+    }
+
+    public ArrayList<Epic> getEpics(){  // получение списка эпиков
+        return new ArrayList<>(epics.values());
+    }
+
+    public ArrayList<Subtask> getSubTasks(){   //получение списка подзадач
+        return new ArrayList<>(subTasks.values());
     }
 
     public void clearAll(){   //удаление всех задач
