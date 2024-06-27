@@ -7,10 +7,10 @@ import java.util.HashMap;
 
 public class TaskManager {
 
-    int nextId = 1;
-    HashMap<Integer, Task> tasks = new HashMap<>();
-    HashMap<Integer, Epic> epics = new HashMap<>();
-    HashMap<Integer, Subtask> subTasks = new HashMap<>();
+    private int nextId = 1;
+    private HashMap<Integer, Task> tasks = new HashMap<>();
+    private HashMap<Integer, Epic> epics = new HashMap<>();
+    private HashMap<Integer, Subtask> subTasks = new HashMap<>();
 
     public ArrayList<Task> getAllTasks(){               //Получение списка всех задач
         ArrayList<Task> allTasks = new ArrayList<>();
@@ -50,7 +50,7 @@ public class TaskManager {
             tasks.remove(id);
         }
         if(epics.containsKey(id)){
-            epics.get(id).taskIds.forEach(taskId -> subTasks.remove(taskId));
+            epics.get(id).getTaskIds().forEach(taskId -> subTasks.remove(taskId));
             epics.remove(id);
         }
         if(subTasks.containsKey(id)){
@@ -74,7 +74,7 @@ public class TaskManager {
         subTasks.put(subtask.getId(), subtask);
 
         Epic epic = epics.get(subtask.getEpicId());
-        epic.taskIds.add(subtask.getId());
+        epic.getTaskIds().add(subtask.getId());
     }
 
     public void update(Task task){ //обновление задачи
@@ -89,7 +89,7 @@ public class TaskManager {
         subTasks.put(subtask.getId(), subtask);
 
         Epic epic = epics.get(subtask.getEpicId());
-        for(Integer id : epic.taskIds){
+        for(Integer id : epic.getTaskIds()){
             if(subTasks.get(id).getStatus() != Status.DONE){
                 epic.setStatus(Status.IN_PROGRESS);
                 return;
@@ -99,7 +99,7 @@ public class TaskManager {
     }
     public ArrayList<Subtask> getSubtasks(Epic epic){  //получение списка подзадач определенного эпика
         ArrayList<Subtask> subtasks = new ArrayList<>();
-        for(Integer id : epic.taskIds){
+        for(Integer id : epic.getTaskIds()){
             subtasks.add(subTasks.get(id));
         }
         return subtasks;
