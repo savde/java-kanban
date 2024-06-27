@@ -1,3 +1,7 @@
+package Controllers;
+
+import Model.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
