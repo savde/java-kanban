@@ -29,15 +29,12 @@ public class Main {
 
 
         tm.getTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
-        System.out.println();
         tm.getEpics().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
-        System.out.println();
         tm.getSubTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
         System.out.println();
 
         firstTask.setStatus(Status.DONE);
         tm.update(firstTask);
-
 
         stOne.setStatus(Status.DONE);
         tm.update(stOne);
@@ -48,12 +45,18 @@ public class Main {
         st.setStatus(Status.DONE);
         tm.update(st);
 
-        tm.getAllTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
+        tm.getTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
+        tm.getEpics().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
+        tm.getSubTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
         System.out.println();
 
         tm.deleteById(firstTask.getId());
         tm.deleteById(fitstEpic.getId());
-        tm.getAllTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
+
+        tm.getTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
+        tm.getEpics().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
+        tm.getSubTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
+
 
 
 

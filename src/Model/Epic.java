@@ -13,4 +13,12 @@ public class Epic extends Task {
     public ArrayList<Integer> getTaskIds() {
         return taskIds;
     }
+
+    public void clearTaskIds(){
+        taskIds.clear();
+    }
+
+    public void deleteTaskId(int id){
+        taskIds.remove(id);
+    }
 }
