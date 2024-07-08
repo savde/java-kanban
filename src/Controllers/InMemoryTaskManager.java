@@ -13,7 +13,7 @@ public class InMemoryTaskManager implements TaskManager {
     private HashMap<Integer, Epic> epics = new HashMap<>();
     private HashMap<Integer, Subtask> subTasks = new HashMap<>();
 
-    HistoryManager history = Managers.getDefaultHistory();
+    private HistoryManager history = Managers.getDefaultHistory();
 
 
     @Override
