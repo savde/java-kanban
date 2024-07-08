@@ -1,64 +1,59 @@
-import Controllers.InMemoryTaskManager;
 import Model.*;
+import Controllers.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        InMemoryTaskManager tm = new InMemoryTaskManager();
+        TaskManager manager = Managers.getDefault(); // Получаем экземпляр TaskManager через утилитарный класс
 
-        Task firstTask = new Task("Купить продукты", "Покупка огурцов, помидоров, зелени для салата", Status.NEW);
-        tm.add(firstTask);
-
-        Task secondTask = new Task("Аренда беседки", "Арендовать беседку на выходные", Status.NEW);
-        tm.add(secondTask);
-
-        Epic fitstEpic = new Epic("Завершение спринта", "Завершение четвертого спринта обучения");
-        tm.add(fitstEpic);
-
-        Subtask stOne = new Subtask("Теория", "Изучение теоретической части спринта", Status.NEW, fitstEpic.getId());
-        Subtask stTwo = new Subtask("Задание", "Выполнение финального задания спринта", Status.NEW, fitstEpic.getId());
-        tm.add(stOne);
-        tm.add(stTwo);
-
-        Epic secondEpic = new Epic("Концепция нового продукта", "Написать и представить концепцию нового продукта");
-        tm.add(secondEpic);
-
-        Subtask st = new Subtask("Список характеристик", "Составить список характеристик и функций нового продукта", Status.NEW, secondEpic.getId());
-        tm.add(st);
+        // Создаем задачи
+        Task task1 = new Task("Задача 1", "Описание задачи 1", Status.NEW);
+        Task task2 = new Task("Задача 2", "Описание задачи 2", Status.IN_PROGRESS);
+        Epic epic1 = new Epic("Эпик 1", "Описание эпика 1");
+        manager.add(task1);
+        manager.add(task2);
+        manager.add(epic1);
 
 
+        Subtask subtask1 = new Subtask("Подзадача 1", "Описание подзадачи 1", Status.DONE, epic1.getId());
 
-        tm.getTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
-        tm.getEpics().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
-        tm.getSubTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
-        System.out.println();
+        manager.add(subtask1);
 
-        firstTask.setStatus(Status.DONE);
-        tm.update(firstTask);
+        // Выводим все задачи
+        printAllTasks(manager);
 
-        stOne.setStatus(Status.DONE);
-        tm.update(stOne);
+        // Вызываем методы для получения задач по идентификаторам
+        Task viewedTask1 = manager.getById(task1.getId());
+        Task viewedSubtask1 = manager.getById(subtask1.getId());
+        Task viewedEpic1 =  manager.getById(epic1.getId());
 
-        stTwo.setStatus(Status.IN_PROGRESS);
-        tm.update(stTwo);
+        // Выводим историю просмотров после вызова методов
+        System.out.println("\nИстория просмотров после вызова методов:");
+        printHistory(manager);
+    }
 
-        st.setStatus(Status.DONE);
-        tm.update(st);
+    private static void printAllTasks(TaskManager manager) {
+        System.out.println("Задачи:");
+        for (Task task : manager.getTasks()) {
+            System.out.println(task);
+        }
+        System.out.println("\nЭпики:");
+        for (Task epic : manager.getEpics()) {
+            System.out.println(epic);
+            for (Task subtask : manager.getSubtasks((Epic) epic)) {
+                System.out.println("--> " + subtask);
+            }
+        }
+        System.out.println("\nПодзадачи:");
+        for (Task subtask : manager.getSubTasks()) {
+            System.out.println(subtask);
+        }
+    }
 
-        tm.getTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
-        tm.getEpics().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
-        tm.getSubTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
-        System.out.println();
-
-        tm.deleteById(firstTask.getId());
-        tm.deleteById(fitstEpic.getId());
-
-        tm.getTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
-        tm.getEpics().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
-        tm.getSubTasks().forEach(task -> {System.out.println(task.getName() + " " + task.getStatus());});
-
-
-
-
+    private static void printHistory(TaskManager manager) {
+        System.out.println("История просмотров задач:");
+        for (Task task : manager.getHistory()) {
+            System.out.println(task);
+        }
     }
 }
