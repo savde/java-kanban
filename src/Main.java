@@ -1,10 +1,10 @@
-import Controllers.TaskManager;
+import Controllers.InMemoryTaskManager;
 import Model.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager tm = new TaskManager();
+        InMemoryTaskManager tm = new InMemoryTaskManager();
 
         Task firstTask = new Task("Купить продукты", "Покупка огурцов, помидоров, зелени для салата", Status.NEW);
         tm.add(firstTask);
