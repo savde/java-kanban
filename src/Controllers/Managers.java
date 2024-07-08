@@ -5,4 +5,8 @@ public class Managers {
         // Здесь можно реализовать логику выбора и создания нужной реализации TaskManager
         return new InMemoryTaskManager(); // По умолчанию возвращаем InMemoryTaskManager
     }
+
+    public static HistoryManager getDefaultHistory() {
+        return new InMemoryHistoryManager();
+    }
 }

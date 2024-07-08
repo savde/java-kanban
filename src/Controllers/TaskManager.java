@@ -14,7 +14,7 @@ public interface TaskManager {
 
     ArrayList<Subtask> getSubTasks();
 
-    List<Task> getHistory();
+    List<Task> getHistList();
 
     void deleteTasks();
 

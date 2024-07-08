@@ -52,7 +52,7 @@ public class Main {
 
     private static void printHistory(TaskManager manager) {
         System.out.println("История просмотров задач:");
-        for (Task task : manager.getHistory()) {
+        for (Task task : manager.getHistList()) {
             System.out.println(task);
         }
     }
